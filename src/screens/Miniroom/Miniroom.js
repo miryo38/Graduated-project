@@ -1,10 +1,48 @@
 import { View, Text,TouchableOpacity,StyleSheet,Image,SafeAreaView,Button} from 'react-native';
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import hat from '../../data/hat'
 import coat from '../../data/coat'
 import shoes from '../../data/shoes'
 import back from '../../data/backimg';
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+const array = {
+  name :'',
+  price:'',
+  address:'',
+}
 const Miniroom = () => {
+  const [users, setUsers] = useState();
+  const [test, settest] = useState('');
+  const usersCollection = firestore().collection('shop');  
+  const getUser = async() => {
+    const currentUser = await firestore()
+    .collection('shop')
+    .doc(user.uid)
+    .get()
+    .then((documentSnapshot) => {
+      if( documentSnapshot.exists ) {
+        console.log('User Data', documentSnapshot.data());
+        setUserData(documentSnapshot.data());
+      }
+    })
+  }
+  
+  const getShopData = async () => {
+    try {
+      const data = await usersCollection.get();
+      setUsers(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
+      settest(users.map(item => item));
+      //array = users.map(item => item)
+      //array.push(users.map(item => item));
+      console.log(test[0].name);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getShopData();
+  }, []);
   const [hatimageVar, sethatImageVar] = useState(0);
   const [coatimageVar, setcoatImageVar] = useState(0);
   const [shoesimageVar, setshoesImageVar] = useState(0); 
@@ -27,6 +65,7 @@ const Miniroom = () => {
   }
   return (
     <View style={styles.container}>
+      
         <Text style={{fontSize:30}}>미니룸</Text>    
           <View style={styles.miniroom2}>
             <View style={{borderWidth:1,borderColor:'blue',flex:1}} resizeMode="stretch" >
@@ -38,10 +77,9 @@ const Miniroom = () => {
               <Image style={{height: 100, width: 100,borderWidth:1,borderColor:'red',flex:1}} resizeMode="stretch" source={shoes[shoesimageVar].imageUrl}/>
             </View>
           </View>
-        
-        
+
         <View style={styles.miniroom} >
-            <Text>보유한 아이템</Text>
+          <Text></Text>
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity onPress={changehat}>
               <Image style={{height: 70, width: 70,borderWidth:1,borderColor:'red',}} resizeMode="contain" source={hat[0].imageUrl} />

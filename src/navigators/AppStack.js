@@ -17,6 +17,7 @@ import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
 import EditProfile from '../screens/EditProfile/EditProfile';
 import ChatScreen from '../screens/ChatScreen/ChatScreen';
 import MessagesScreen from '../screens/MessagesScreen';
+import ProfileStackScreen from '../screens/ProfileStackScreen/ProfileStackScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -106,39 +107,6 @@ const MessageStack = ({navigation}) => (
     </Stack.Screen>
   </Stack.Navigator>
 );
-
-const ProfileStack = ({navigation}) => (
-  <Stack.Navigator>
-    <Stack.Screen
-      name="ProfileScreen"
-      component={ProfileScreen}
-      options={{
-        headerShown: false,
-      }}
-    />
-    <Stack.Screen
-      name="EditProfile"
-      component={EditProfile}
-      options={{
-        headerTitle: 'Edit Profile',
-        headerBackTitleVisible: false,
-        headerTitleAlign: 'center',
-        headerStyle: {
-          backgroundColor: '#fff',
-          shadowColor: '#fff',
-          elevation: 0,
-        },
-      }}
-    />
-
-
-  </Stack.Navigator>
-  
-  
-);
-
-
-
 const AppStack = () => {
   const getTabBarVisibility = (route) => {
     const routeName = route.state
@@ -158,7 +126,7 @@ const AppStack = () => {
       }}>
             <Tab.Screen
         name="Home"
-        component={ProfileStack}
+        component={ProfileStackScreen}
         options={{
           // tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (
