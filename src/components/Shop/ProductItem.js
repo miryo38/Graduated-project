@@ -21,7 +21,7 @@ const ProductItem = ({src,name,price}) => {
     const [addaddress,setaddAddress] = useState(src);
     const addTool = firestore().collection('shop');
     
-    const addText = async () => {
+    const addItem = async () => {
         try {
             await addTool.add({
             name: addname,
@@ -42,7 +42,7 @@ const ProductItem = ({src,name,price}) => {
     return (
         <Card style={ styles.product }>
             <View style={ styles.touchable }>
-            <TouchableCmp onPress={addText}>
+            <TouchableCmp onPress={addItem}>
             <View>
             <View style={ styles.imageContainer }>
                 <Image

@@ -6,36 +6,15 @@ import shoes from '../../data/shoes'
 import back from '../../data/backimg';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
-const array = {
-  name :'',
-  price:'',
-  address:'',
-}
 const Miniroom = () => {
-  const [users, setUsers] = useState();
-  const [test, settest] = useState('');
+  const [tool, setTool] = useState();
   const usersCollection = firestore().collection('shop');  
-  const getUser = async() => {
-    const currentUser = await firestore()
-    .collection('shop')
-    .doc(user.uid)
-    .get()
-    .then((documentSnapshot) => {
-      if( documentSnapshot.exists ) {
-        console.log('User Data', documentSnapshot.data());
-        setUserData(documentSnapshot.data());
-      }
-    })
-  }
   
   const getShopData = async () => {
     try {
       const data = await usersCollection.get();
-      setUsers(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
-      settest(users.map(item => item));
-      //array = users.map(item => item)
-      //array.push(users.map(item => item));
-      console.log(test[0].name);
+      setTool(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
+      console.log(tool[0].name);
     } catch (error) {
       console.log(error.message);
     }
@@ -79,7 +58,9 @@ const Miniroom = () => {
           </View>
 
         <View style={styles.miniroom} >
-          <Text></Text>
+        {tool?.map((row, idx) => {
+        return <Image source={{uri:row.address}}></Image>;
+      })}
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity onPress={changehat}>
               <Image style={{height: 70, width: 70,borderWidth:1,borderColor:'red',}} resizeMode="contain" source={hat[0].imageUrl} />
