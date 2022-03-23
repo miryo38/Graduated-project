@@ -1,9 +1,13 @@
 import { View, Text,TouchableOpacity,StyleSheet,} from 'react-native';
 import React from 'react';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 const Diary = () => {
     return (
     <View style={styles.container}>
+     
+         
+         
         <Text style={{fontSize:30}}>다이어리</Text>
         <View style={styles.title}>
           <Text style={{flex:1,textAlign: 'center',borderColor:'red',borderWidth:1}}>이름</Text>

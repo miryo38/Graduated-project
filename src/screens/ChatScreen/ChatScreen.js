@@ -3,9 +3,13 @@ import { View, Text } from 'react-native'
 import { GiftedChat,Bubble,InputToolbar} from 'react-native-gifted-chat'
 import firestore from '@react-native-firebase/firestore'
 import { AuthContext } from '../../utils/AuthProvider'
+import ChatHeader from '../../Chat/Components/messages/ChatHeader'
+import { UserImg } from '../../../styles/FeedStyles'
+import ChatInput from '../../Chat/Components/messages/ChatInput'
 export default function ChatScreen({route}) {
   const [messages, setMessages] = useState([]);
   const {uid} = route.params;
+
   const {user, logout} = useContext(AuthContext);
   const getAllMessages = async ()=>{
      const docid  = uid > user.uid ? user.uid+ "-" + uid : uid+"-"+user.uid 
@@ -79,7 +83,14 @@ export default function ChatScreen({route}) {
 
    }
  return (
+   
      <View style={{flex:1,backgroundColor:"#f5f5f5"}}>
+       <ChatHeader
+       onPress={() => {}}
+				username={route.params.name}
+        picture={route.params.img}
+				
+				onlineStatus={'Online'}/>
         <GiftedChat
              messages={messages}
              onSend={text => onSend(text)}
@@ -107,6 +118,7 @@ export default function ChatScreen({route}) {
              }}
              
              />
+            
      </View>
  )
 }

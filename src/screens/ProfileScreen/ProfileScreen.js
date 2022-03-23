@@ -1,6 +1,4 @@
 import React, {useState, useEffect, useContext} from 'react';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../../store/reducer';
 
 import {
   View,
@@ -19,8 +17,7 @@ import storage from '@react-native-firebase/storage';
 const ProfileScreen = () => {
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
-  const email = useSelector((state: RootState) => state.user.email);
-  const name = useSelector((state: RootState) => state.user.name);
+ 
   const navigation = useNavigation();
   
   const getUser = async() => {
@@ -44,7 +41,7 @@ const ProfileScreen = () => {
     navigation.navigate('EditProfile');
 };
   const onMusicPressed = () => {
-  console.log(name);
+ 
     navigation.navigate('Music');
 };
 const onEditFriendPressed = () => {
@@ -58,7 +55,7 @@ const onDiarypress = () => {
   navigation.navigate('Diary');
 };
 const onalbumpress = () => {
-  console.log({name});
+ 
   navigation.navigate('Album');
 };
 const onFollowpress = () => {

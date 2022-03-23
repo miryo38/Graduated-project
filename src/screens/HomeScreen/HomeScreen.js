@@ -11,27 +11,33 @@ import {
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 import Ionicons from 'react-native-vector-icons/Ionicons';
-
+import { useIsFocused } from '@react-navigation/native';
 import PostCard from '../../utils/PostCard';
 
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
-
+import  firebase from '@react-native-firebase/app';
 import {Container} from '../../../styles/FeedStyles';
+import { AuthContext } from '../../utils/AuthProvider';
 
 
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({navigation,props}) => {
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
+  const [currentUserLike, setCurrentUserLike] = useState(false)
+
 
   const fetchPosts = async () => {
     try {
       const list = [];
 
+      
       await firestore()
         .collection('posts')
+        .doc('Allposts')
+        .collection('userPosts')
         .orderBy('postTime', 'desc')
         .get()
         .then((querySnapshot) => {
@@ -43,7 +49,7 @@ const HomeScreen = ({navigation}) => {
               post,
               postImg,
               postTime,
-              likes,
+              likes,  
               comments,
             } = doc.data();
             list.push({
@@ -153,53 +159,7 @@ const HomeScreen = ({navigation}) => {
     return null;
   };
   return (
-    <SafeAreaView style={{flex: 1}}>
-      {loading ? (
-        <ScrollView
-          style={{flex: 1}}
-          contentContainerStyle={{alignItems: 'center'}}>
-          <SkeletonPlaceholder>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{width: 60, height: 60, borderRadius: 50}} />
-              <View style={{marginLeft: 20}}>
-                <View style={{width: 120, height: 20, borderRadius: 4}} />
-                <View
-                  style={{marginTop: 6, width: 80, height: 20, borderRadius: 4}}
-                />
-              </View>
-            </View>
-            <View style={{marginTop: 10, marginBottom: 30}}>
-              <View style={{width: 300, height: 20, borderRadius: 4}} />
-              <View
-                style={{marginTop: 6, width: 250, height: 20, borderRadius: 4}}
-              />
-              <View
-                style={{marginTop: 6, width: 350, height: 200, borderRadius: 4}}
-              />
-            </View>
-          </SkeletonPlaceholder>
-          <SkeletonPlaceholder>
-            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              <View style={{width: 60, height: 60, borderRadius: 50}} />
-              <View style={{marginLeft: 20}}>
-                <View style={{width: 120, height: 20, borderRadius: 4}} />
-                <View
-                  style={{marginTop: 6, width: 80, height: 20, borderRadius: 4}}
-                />
-              </View>
-            </View>
-            <View style={{marginTop: 10, marginBottom: 30}}>
-              <View style={{width: 300, height: 20, borderRadius: 4}} />
-              <View
-                style={{marginTop: 6, width: 250, height: 20, borderRadius: 4}}
-              />
-              <View
-                style={{marginTop: 6, width: 350, height: 200, borderRadius: 4}}
-              />
-            </View>
-          </SkeletonPlaceholder>
-        </ScrollView>
-      ) : (
+
         <Container>
           <FlatList
             data={posts}
@@ -218,8 +178,8 @@ const HomeScreen = ({navigation}) => {
             showsVerticalScrollIndicator={false}
           />
         </Container>
-      )}
-    </SafeAreaView>
+    
+   
   );
 };
 

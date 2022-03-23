@@ -14,22 +14,23 @@ import ChatStackScreen from '../screens/ChatStackScreen/ChatStackScreen'
 import SettingScreen from '../screens/SettingScreen/SettingScreen';
 import AddPostScreen from '../screens/AddPostScreen';
 import ProfileScreen from '../screens/ProfileScreen/ProfileScreen';
+import ProfileStackScreen from '../screens/ProfileStackScreen/ProfileStackScreen';
 import EditProfile from '../screens/EditProfile/EditProfile';
 import ChatScreen from '../screens/ChatScreen/ChatScreen';
 import MessagesScreen from '../screens/MessagesScreen';
-import ProfileStackScreen from '../screens/ProfileStackScreen/ProfileStackScreen';
+import Header from '../Chat/Components/common/Header';
+import ChatNavigator from '../Chat/ChatNavigator'
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
       name="FREE SNS"
       component={HomeScreen}
       options={{
-        headerTitleAlign: 'center',
+        
         headerTitleStyle: {
-          color: '#2e64e5',
+          color: '#FF6347',
           fontSize: 18,
         },
         headerStyle: {
@@ -42,7 +43,7 @@ const FeedStack = ({navigation}) => (
               name="plus"
               size={22}
               backgroundColor="#fff"
-              color="#2e64e5"
+              color="#FF6347"
               onPress={() => navigation.navigate('AddPost')}
             />
           </View>
@@ -70,7 +71,7 @@ const FeedStack = ({navigation}) => (
     />
     <Stack.Screen
       name="Home"
-      component={ProfileScreen}
+      component={ProfileStackScreen}
       options={{
         title: '',
         headerTitleAlign: 'center',
@@ -78,6 +79,7 @@ const FeedStack = ({navigation}) => (
           backgroundColor: '#fff',
           shadowColor: '#fff',
           elevation: 0,
+          
         },
         headerBackTitleVisible: false,
         headerBackImage: () => (
@@ -92,20 +94,51 @@ const FeedStack = ({navigation}) => (
 
 const MessageStack = ({navigation}) => (
   <Stack.Navigator>
-    <Stack.Screen name="MESSAGE">
-      {props => <MessagesScreen {...props} /> }
-    </Stack.Screen>
+    <Stack.Screen name="Message"  component={ChatNavigator} options={{
+				headerShown: true,
+				header: () => <Header title="채팅" />
+			}} />
+    
     <Stack.Screen
       name="CHAT"
       
       options={({route}) => ({
-        title: route.params.name,
-        headerBackTitleVisible: false,
+        
+        headerShown: false,
       })}
     >
       {props => <ChatScreen {...props}  /> }
     </Stack.Screen>
   </Stack.Navigator>
+);
+const ProfileStack = ({navigation}) => (
+  <Stack.Navigator>
+    <Stack.Screen
+      name="ProfileScreen"
+      component={ProfileStackScreen}
+      options={{
+        headerShown: false,
+      }}
+    />
+    <Stack.Screen
+      name="EditProfile"
+      component={EditProfile}
+      options={{
+        headerTitle: 'Edit Profile',
+        headerBackTitleVisible: false,
+        headerTitleAlign: 'center',
+        headerStyle: {
+          backgroundColor: '#fff',
+          shadowColor: '#fff',
+          elevation: 0,
+        },
+      }}
+    />
+
+
+  </Stack.Navigator>
+  
+  
 );
 const AppStack = () => {
   const getTabBarVisibility = (route) => {
@@ -123,6 +156,8 @@ const AppStack = () => {
     <Tab.Navigator screenOptions={{headerShown: false}}
       tabBarOptions={{
         activeTintColor: '#2e64e5',
+        keyboardHidesTabBar: true,
+        
       }}>
             <Tab.Screen
         name="Home"

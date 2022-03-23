@@ -8,6 +8,11 @@ export const Container = styled.View`
   background-color: #ffffff;
 `;
 
+export const SearchInputs = styled.View`
+  flex: 1;
+
+`;
+
 export const Card = styled.TouchableOpacity`
   width: 100%;
 `;

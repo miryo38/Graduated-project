@@ -10,7 +10,7 @@ import {
 import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons';
 import ImagePicker from 'react-native-image-crop-picker';
-
+import firebase from '@react-native-firebase/app'
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
@@ -66,19 +66,21 @@ const AddPostScreen = () => {
 
     firestore()
     .collection('posts')
+    .doc('Allposts')
+    .collection("userPosts")
     .add({
+      
       uid: user.uid,
       post: post,
       postImg: imageUrl,
       postTime: firestore.Timestamp.fromDate(new Date()),
-      likes: null,
-      comments: null,
+      likes: 0,
+      comments: 0,
     })
     .then(() => {
       console.log('Post Added!');
       Alert.alert(
-        'Post published!',
-        'Your post has been published Successfully!',
+        '게시물 업데이트 완료!',
       );
       setPost(null);
     })
@@ -102,7 +104,7 @@ const AddPostScreen = () => {
     setUploading(true);
     setTransferred(0);
 
-    const storageRef = storage().ref(`photos/${filename}`);
+    const storageRef = storage().ref(`posts/${filename}`);
     const task = storageRef.putFile(uploadUri);
 
     // Set transferred state
@@ -144,7 +146,7 @@ const AddPostScreen = () => {
         {image != null ? <AddImage source={{uri: image}} /> : null}
 
         <InputField
-          placeholder="What's on your mind?"
+          placeholder="게시물 내용을 작성하세요!"
           multiline
           numberOfLines={4}
           value={post}

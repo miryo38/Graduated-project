@@ -87,7 +87,7 @@ const EditProfile = () => {
     setUploading(true);
     setTransferred(0);
 
-    const storageRef = storage().ref(`photos/${filename}`);
+    const storageRef = storage().ref(`ProfilePhotos/${filename}`);
     const task = storageRef.putFile(uploadUri);
 
     // Set transferred state

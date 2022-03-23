@@ -1,4 +1,5 @@
 import React, {createContext, useState} from 'react';
+import {Image} from 'react-native';
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-community/google-signin';
@@ -120,7 +121,7 @@ export const AuthProvider = ({children}) => {
                   about: null,
                   birthday: null,
                   createdAt: firestore.Timestamp.fromDate(new Date()),
-                  userImg: null,
+                  userImg: 'https://firebasestorage.googleapis.com/v0/b/graduated-project-ce605.appspot.com/o/AppImage%2Fprofile.jpg?alt=media&token=719929c2-defb-4cbf-99ca-fddd21bfeaa4',
               })
               //ensure we catch any errors at this stage to advise us if something does go wrong
               .catch(error => {
