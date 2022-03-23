@@ -59,7 +59,7 @@ const Miniroom = () => {
 
         <View style={styles.miniroom} >
         {tool?.map((row, idx) => {
-        return <Image source={{uri:row.address}}></Image>;
+        return <TouchableOpacity><Image source ={{uri:row.address}} style={{width:70,height:70}}></Image></TouchableOpacity>;
       })}
             <View style={{flexDirection:'row'}}>
             <TouchableOpacity onPress={changehat}>
