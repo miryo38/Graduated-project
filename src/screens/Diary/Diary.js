@@ -1,24 +1,33 @@
-import { View, Text,TouchableOpacity,StyleSheet,} from 'react-native';
+import { View, Text,TouchableOpacity,StyleSheet,SafeAreaView,} from 'react-native';
 import React from 'react';
-import Ionicons from 'react-native-vector-icons/Ionicons';
+import {CalendarList} from 'react-native-calendars';
 
 const Diary = () => {
+  const vacation = {key: 'vacation', color: 'red', selectedDotColor: 'blue'};
+const massage = {key: 'massage', color: 'blue', selectedDotColor: 'blue'};//임의
     return (
-    <View style={styles.container}>
-     
-         
-         
-        <Text style={{fontSize:30}}>다이어리</Text>
-        <View style={styles.title}>
-          <Text style={{flex:1,textAlign: 'center',borderColor:'red',borderWidth:1}}>이름</Text>
-          <Text style={{flex:1,textAlign: 'center',borderColor:'red',borderWidth:1}}>별명</Text>
-          <Text style={{flex:1,textAlign: 'center',borderColor:'red',borderWidth:1}}>생일</Text>  
+      <SafeAreaView style={styles.container}>
+      <CalendarList style={styles.calendarList}
+  // Enable horizontal scrolling, default = false
+  horizontal={true}
+  // Enable paging on horizontal, default = false
+  pagingEnabled={true}
+   // Max amount of months allowed to scroll to the past. Default = 50
+   pastScrollRange={12}
+  // Max amount of months allowed to scroll to the future. Default = 50
+  futureScrollRange={12}
+  // Set custom calendarWidth.
+  calendarWidth={400}
+  markingType={'multi-dot'}
+  markedDates={{
+    '2022-03-25': {dots: [vacation, massage]},
+    '2022-03-26': {dots: [massage],}
+  }}
+/>
+        <View style={styles.memo}>
+          
         </View>
-        
-        <View style={styles.miniroom}>
-            <Text>BGM 편집 기능 추가/수정/삭제</Text>
-        </View>
-    </View>
+      </SafeAreaView>
   );
 };
 
@@ -26,26 +35,18 @@ export default Diary;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column', // 혹은 'column'
+        flexDirection: 'column', 
       backgroundColor: '#fff',
       padding: 20,
       borderWidth: 1,
-      borderColor: 'blue',
-      alignItems: 'center',
+
     },
     title:{
       flexDirection: 'row', // 혹은 'column'
       flex: 1,
     },
-    miniroom: {
-      width:'100%', 
-      height:150,
-      justifyContent: 'space-around',
-      alignItems:'center',
-      marginTop: 30,
-      paddingVertical: 8,
-      paddingHorizontal: 12,
-      borderWidth: 1,
-      borderColor: 'green',
+    calendarList:{
+
+
     },
   });

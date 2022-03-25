@@ -1,20 +1,21 @@
 import { View, Text,TouchableOpacity,StyleSheet,} from 'react-native';
 import React from 'react';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Album = () => {
     return (
-    <View style={styles.container}>
-        <Text style={{fontSize:30}}>사진첩</Text>
-        <View style={styles.title}>
-          <Text style={{flex:1,textAlign: 'center',borderColor:'red',borderWidth:1}}>이름</Text>
-          <Text style={{flex:1,textAlign: 'center',borderColor:'red',borderWidth:1}}>별명</Text>
-          <Text style={{flex:1,textAlign: 'center',borderColor:'red',borderWidth:1}}>생일</Text>  
-        </View>
+      <SafeAreaView style={styles.container}>
+      <View style={styles.titleConainer}>
+      <Text style={{fontSize:30}}>사진첩</Text>
+      </View>
+        
         
         <View style={styles.miniroom}>
             <Text>BGM 편집 기능 추가/수정/삭제</Text>
         </View>
-    </View>
+
+      </SafeAreaView>
+    
   );
 };
 
@@ -28,6 +29,9 @@ const styles = StyleSheet.create({
       borderWidth: 1,
       borderColor: 'blue',
       alignItems: 'center',
+    },
+    titleConainer:{
+      backgroundcolor:'orange',
     },
     title:{
       flexDirection: 'row', // 혹은 'column'
