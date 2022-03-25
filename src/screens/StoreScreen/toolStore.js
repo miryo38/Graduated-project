@@ -8,7 +8,7 @@ const toolStore = () => {
     <ScrollView>
       <Text>toolStore</Text>
       <ProductItem
-      src={'https://www.smlounge.co.kr/upload/living/article/202012/thumb/46702-435751-sampleM.jpg'}
+      src={'https://firebasestorage.googleapis.com/v0/b/graduated-project-ce605.appspot.com/o/Animals%2FblackPig2.png?alt=media&token=c5eaa148-6a09-4fd6-b6a4-4f7abc1ae8f0'}
       name={'가구1'}
       price={'20억'}
       />
