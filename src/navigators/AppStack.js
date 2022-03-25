@@ -22,7 +22,6 @@ import Header from '../Chat/Components/common/Header';
 import ChatNavigator from '../Chat/ChatNavigator'
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
@@ -112,7 +111,6 @@ const MessageStack = ({navigation}) => (
     </Stack.Screen>
   </Stack.Navigator>
 );
-
 const ProfileStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
@@ -142,9 +140,6 @@ const ProfileStack = ({navigation}) => (
   
   
 );
-
-
-
 const AppStack = () => {
   const getTabBarVisibility = (route) => {
     const routeName = route.state
@@ -166,7 +161,7 @@ const AppStack = () => {
       }}>
             <Tab.Screen
         name="Home"
-        component={ProfileStack}
+        component={ProfileStackScreen}
         options={{
           // tabBarLabel: 'Home',
           tabBarIcon: ({color, size}) => (

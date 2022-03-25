@@ -15,7 +15,6 @@ import { AuthContext } from '../../utils/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
 const ProfileScreen = () => {
-
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
  
@@ -63,7 +62,7 @@ const onFollowpress = () => {
   navigation.navigate('Follow');
 };
 const onMiniroompress = () => {
-  navigation.navigate('Miniroom');
+  navigation.navigate('Miniroom'); 
 }; 
 
 

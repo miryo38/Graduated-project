@@ -1,18 +1,39 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
     View,
     Text,
-    Image,
     StyleSheet,
+    Image,
     Button,
     TouchableOpacity,
     TouchableNativeFeedback,
-    Platform
+    Platform,
+    Alert
 } from 'react-native'
 import Card from '../UI/Card'
-import { getCurrency } from '../util/NumberFormat'
+import storage from '@react-native-firebase/storage';
+import firestore from '@react-native-firebase/firestore';
+import { now } from 'moment';
 
-const ProductItem = props => {
+const ProductItem = ({src,name,price}) => {
+    const [addname,setaddName] = useState(name);
+    const [addprice,setaddPrice] = useState(price);
+    const [addaddress,setaddAddress] = useState(src);
+    const addTool = firestore().collection('shop');
+    
+    const addItem = async () => {
+        try {
+            await addTool.add({
+            name: addname,
+            price: addprice,
+            address: addaddress,
+          });
+          console.log(`이름 : ${addname} 가격: ${addprice} 주소 : ${addaddress}`);
+        } catch (error) {
+          console.log(error.message);
+        }
+      };
+
     let TouchableCmp = TouchableOpacity
     if (Platform.OS === 'android' && Platform.Version >= 21) {
         TouchableCmp = TouchableNativeFeedback
@@ -21,18 +42,22 @@ const ProductItem = props => {
     return (
         <Card style={ styles.product }>
             <View style={ styles.touchable }>
-            <TouchableCmp onPress={ props.onSelect } useForeground>
+            <TouchableCmp onPress={addItem}>
             <View>
             <View style={ styles.imageContainer }>
                 <Image
                     style={ styles.image }
-                    source={{uri:'https://t1.daumcdn.net/cfile/tistory/9942214E5B5E76930B'}}
+                    source={{uri:src}}
                     resizeMode="contain"
                     />
             </View>
             <View style={ styles.details }>
-                <Text style={ styles.title }>상품이름</Text>
-                <Text style={ styles.price }>1원</Text>
+                <Text style={ styles.title }
+                
+                >{addname}
+                
+                </Text>
+                <Text style={ styles.price }>{price}</Text>
             </View>
             <View style={ styles.actions }>
                 
