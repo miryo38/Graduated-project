@@ -25,7 +25,7 @@ const Tab = createBottomTabNavigator();
 const FeedStack = ({navigation}) => (
   <Stack.Navigator>
     <Stack.Screen
-      name="FREE SNS"
+      name="SNS"
       component={HomeScreen}
       options={{
         

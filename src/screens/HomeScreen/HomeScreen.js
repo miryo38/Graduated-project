@@ -22,12 +22,12 @@ import { AuthContext } from '../../utils/AuthProvider';
 
 
 
-const HomeScreen = ({navigation,props}) => {
+const HomeScreen = ({navigation,route}) => {
+  
   const [posts, setPosts] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deleted, setDeleted] = useState(false);
   const [currentUserLike, setCurrentUserLike] = useState(false)
-
 
   const fetchPosts = async () => {
     try {
@@ -35,11 +35,10 @@ const HomeScreen = ({navigation,props}) => {
 
       
       await firestore()
-        .collection('posts')
-        .doc('Allposts')
-        .collection('userPosts')
-        .orderBy('postTime', 'desc')
-        .get()
+        
+      .collection("posts")
+      .orderBy('postTime', 'desc')
+      .get()
         .then((querySnapshot) => {
           // console.log('Total Posts: ', querySnapshot.size);
 

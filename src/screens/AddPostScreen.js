@@ -13,6 +13,7 @@ import ImagePicker from 'react-native-image-crop-picker';
 import firebase from '@react-native-firebase/app'
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   InputField,
@@ -27,7 +28,8 @@ import { AuthContext } from '../utils/AuthProvider';
 
 const AddPostScreen = () => {
 
-  
+  const navigation = useNavigation();
+
   const {user, logout} = useContext(AuthContext);
 
   const [image, setImage] = useState(null);
@@ -60,14 +62,13 @@ const AddPostScreen = () => {
   };
 
   const submitPost = async () => {
+    const currentuserId = firebase.auth().currentUser.uid
     const imageUrl = await uploadImage();
     console.log('Image Url: ', imageUrl);
     console.log('Post: ', post);
 
     firestore()
     .collection('posts')
-    .doc('Allposts')
-    .collection("userPosts")
     .add({
       
       uid: user.uid,
@@ -82,7 +83,9 @@ const AddPostScreen = () => {
       Alert.alert(
         '게시물 업데이트 완료!',
       );
+
       setPost(null);
+      navigation.navigate('SNS', {currentuserId: currentuserId});
     })
     .catch((error) => {
       console.log('Something went wrong with added post to firestore.', error);

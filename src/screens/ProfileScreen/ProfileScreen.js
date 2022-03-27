@@ -1,4 +1,6 @@
 import React, {useState, useEffect, useContext} from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../../store/reducer';
 
 import {
   View,
@@ -9,16 +11,20 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
+  
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import { AuthContext } from '../../utils/AuthProvider';
 import firestore from '@react-native-firebase/firestore';
 import storage from '@react-native-firebase/storage';
+import MarqueeText from 'react-native-marquee';
 const ProfileScreen = () => {
+
   const {user, logout} = useContext(AuthContext);
   const [userData, setUserData] = useState(null);
- 
+
   const navigation = useNavigation();
+  
   
   const getUser = async() => {
     const currentUser = await firestore()
@@ -41,7 +47,6 @@ const ProfileScreen = () => {
     navigation.navigate('EditProfile');
 };
   const onMusicPressed = () => {
- 
     navigation.navigate('Music');
 };
 const onEditFriendPressed = () => {
@@ -55,14 +60,13 @@ const onDiarypress = () => {
   navigation.navigate('Diary');
 };
 const onalbumpress = () => {
- 
   navigation.navigate('Album');
 };
 const onFollowpress = () => {
   navigation.navigate('Follow');
 };
 const onMiniroompress = () => {
-  navigation.navigate('Miniroom'); 
+  navigation.navigate('Miniroom');
 }; 
 
 
@@ -74,15 +78,21 @@ const onMiniroompress = () => {
         
       </View>
       
-      <TouchableOpacity onPress={() => onMusicPressed()}>
-      <View style={styles.music}>
-        <Text>music</Text>
-      </View>
-      </TouchableOpacity>
+      <TouchableOpacity style={styles.music} onPress={() => onMusicPressed()}>
+      <MarqueeText
+          style={{ fontSize: 20 }}
+          duration={4000}
+          marqueeOnStart
+          loop
+          marqueeDelay={1500}
+          marqueeResetDelay={1500}
+        >
+        now playing  now playing  now playing  now playing  now playing  now playing  now playing
+        </MarqueeText>
+            </TouchableOpacity>
       <ScrollView
         style={styles.container}
-        contentContainerStyle={{justifyContent: 'center', alignItems: 'center',borderWidth: 1,
-        borderColor: 'blue',}}
+        contentContainerStyle={{justifyContent: 'center', alignItems: 'center'}}
         showsVerticalScrollIndicator={false}>
         <View style={styles.titlecontainer}>
           <View style={styles.leftcontainer}>
@@ -143,16 +153,20 @@ const onMiniroompress = () => {
               </TouchableOpacity>
 
               <TouchableOpacity style={styles.userBtn} onPress={() => onalbumpress()}>
-                <Text style={styles.userBtnTxt}>사진첩</Text>
+                <Text style={styles.userBtnTxt}> 사진첩</Text>
               </TouchableOpacity>
               
               <TouchableOpacity style={styles.userBtn} onPress={() => onweblogpress()}>
-                <Text style={styles.userBtnTxt}>방명록</Text>
+                <Text style={styles.userBtnTxt}> 방명록</Text>
               </TouchableOpacity>
         </View>
         <TouchableOpacity style={styles.miniroom} onPress={() => onMiniroompress()}>
         <View>
-          <Text>미니룸</Text>
+        <Text style={{fontSize:20,textAlign:'center',marginBottom:10 }}>{userData ? userData.name : ''}님의 미니룸</Text>
+          <Image source={{uri: 'https://t1.daumcdn.net/cafeattach/MT4/648d42cb50cafc47f7d02fdfc380f91449afca84'}}
+       style={{width: 400, height: 230,marginTop:0}}>
+
+          </Image>
         </View>
         </TouchableOpacity>
       </ScrollView>
@@ -185,17 +199,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
+    marginTop:10,
    
   },
   music:{
-    borderWidth: 1,
-    borderColor: 'green',
-    justifyContent: "center",
-    flexDirection: 'row',
-    alignItems: "center",
+    marginTop:10,
+    height:25,
+    marginLeft:25,
+    marginRight:25,
   },
-  title:{
+  title:{ 
+    height:50,
+    backgroundColor: 'orange',
     justifyContent: "center",
     flexDirection: 'row',
     alignItems: "center",
@@ -204,7 +219,7 @@ const styles = StyleSheet.create({
   },
   titleText:{
     fontSize: 20,
-   
+    color:'#fff',
    
   },
   userImg: {
@@ -225,19 +240,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     width: '100%',
-    marginBottom: 10,
-    
-  },
+      },
   userBtn: {
-    borderColor: '#2e64e5',
-    borderWidth: 2,
-    borderRadius: 3,
-    paddingVertical: 8,
+    width:120,
+    backgroundColor:'orange',
+    borderColor: 'orange',
+    borderBottomColor:'#fff',
+    borderWidth:1,
+    paddingVertical: 12,
     paddingHorizontal: 12,
-    marginHorizontal: 5,
+    marginHorizontal: 6,
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
   },
   userBtnTxt: {
-    color: '#2e64e5',
+    color: '#fff',
+    textAlign:'center',  
+    fontSize:15,
   },
   userInfoWrapper: {
     flexDirection: 'row',
@@ -261,12 +280,12 @@ const styles = StyleSheet.create({
   },
   miniroom: {
     width:'100%',
-    height:150,
+    height:300,
     justifyContent: 'space-around',
     alignItems:'center',
     paddingVertical: 8,
-    paddingHorizontal: 12,
-    borderWidth: 1,
-    borderColor: 'green',
+    paddingHorizontal: 8,
+
   },
+
 });
