@@ -15,7 +15,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 const Tab = createMaterialTopTabNavigator();
 const gestureRootViewStyle = { flex: 1 };
 
-const Miniroom = () => {
+const Miniroom = () => { 
   const draggableItemList = [
     {
       "id": 1,

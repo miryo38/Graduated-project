@@ -9,7 +9,7 @@ const minimiStore = () => {
   const usersCollection = firestore().collection('shops');  
   const [tool, setTool] = useState();
   
-  const getShopData = async () => {
+  const getShopData = async () => { 
     try {
       const data = await usersCollection.get();
       setTool(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
