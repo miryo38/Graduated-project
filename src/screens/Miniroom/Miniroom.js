@@ -1,8 +1,5 @@
 import { View, Text,TouchableOpacity,StyleSheet,Image,SafeAreaView,Button,Dimensions} from 'react-native';
 import React,{useState,useEffect} from 'react'
-import hat from '../../data/hat'
-import coat from '../../data/coat'
-import back from '../../data/backimg';
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import { DraxView,DraxProvider,DraxList } from 'react-native-drax';

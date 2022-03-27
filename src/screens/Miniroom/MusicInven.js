@@ -3,7 +3,7 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import React,{useState,useEffect} from 'react'
 
-const MusicInven = () => { 
+const MusicInven = () => {
   const usersCollection = firestore().collection('Inventory');  
   const [tool, setTool] = useState();
   

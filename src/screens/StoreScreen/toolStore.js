@@ -5,7 +5,7 @@ import { useState,useEffect} from 'react'
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
-const toolStore = () => { 
+const toolStore = () => {
   const usersCollection = firestore().collection('shops');  
   const [tool, setTool] = useState();
   

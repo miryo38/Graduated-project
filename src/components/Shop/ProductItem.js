@@ -15,7 +15,7 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import { now } from 'moment';
 
-const ProductItem = ({src,name,price,classification}) => {  
+const ProductItem = ({src,name,price,classification}) => { 
     const [addname,setaddName] = useState(name);
     const [addprice,setaddPrice] = useState(price);
     const [addaddress,setaddAddress] = useState(src);
