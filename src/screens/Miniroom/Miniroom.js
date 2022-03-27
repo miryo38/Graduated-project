@@ -16,51 +16,7 @@ const Tab = createMaterialTopTabNavigator();
 const gestureRootViewStyle = { flex: 1 };
 
 const Miniroom = () => {
-  const draggableItemList = [
-    {
-      "id": 1,
-      "name": "A",
-      "background_color": "red"
-    },
-    {
-      "id": 2,
-      "name": "B",
-      "background_color": "pink"
-    },
-    {
-      "id": 3,
-      "name": "C",
-      "background_color": "orange"
-
-    },
-    {
-      "id": 4,
-      "name": "D",
-      "background_color": "#aaaaff"
-    },
-  ];
-  const FirstReceivingItemList = [
-    {
-      "id": 13,
-      "name": "M",
-      "background_color": '#ffaaff'
-    },
-    {
-      "id": 14,
-      "name": "N",
-      "background_color": '#ffaaff'
-    },
-    {
-      "id": 15,
-      "name": "O",
-      "background_color": '#ffaaff'
-    },
-    {
-      "id": 16,
-      "name": "P",
-      "background_color": '#ffaaff'
-    }
-  ];
+  const [ShopData, setShopData] = useState(null);
   const usersCollection = firestore().collection('Inventory');  
   const [tool, setTool] = useState('');
   const getShopData = async () => {
@@ -68,6 +24,7 @@ const Miniroom = () => {
       const data = await usersCollection.get();
       setTool(data._docs.map(doc => ({ ...doc.data(), id: doc.id })));
       console.log(tool[1].name);
+      setShopData(documentSnapshot.data());
     } catch (error) {
       console.log(error.message);
     }
@@ -75,65 +32,16 @@ const Miniroom = () => {
   useEffect(() => {
     getShopData();
   }, []);
-  const [receivingItemList, setReceivedItemList] = useState(FirstReceivingItemList);
-  const [dragItemMiddleList, setDragItemListMiddle] = useState(draggableItemList);
+
   
   
-  const DragUIComponent = ({ item, index }) => {
-    return (
-      <DraxView
-        style={[styles.centeredContent, styles.draggableBox, { backgroundColor: 'white',borderWidth:1 }]}
-        draggingStyle={styles.dragging}
-        dragReleasedStyle={styles.dragging}
-        hoverDraggingStyle={styles.hoverDragging}
-        dragPayload={index}
-        longPressDelay={150}
-        key={index}
-      >
-        <Text style={styles.textStyle}>{item.name}</Text>
-      </DraxView>
-    );
-  } 
 
-  const ReceivingZoneUIComponent = ({ item, index }) => {
-    return (
-      <DraxView
-        style={[styles.centeredContent, styles.receivingZone, { backgroundColor: item.background_color }]}
-        receivingStyle={styles.receiving}
-        renderContent={({ viewState }) => {
-          const receivingDrag = viewState && viewState.receivingDrag;
-          const payload = receivingDrag && receivingDrag.payload;
-          return (
-            <View>
-              <Text style={styles.textStyle}>{item.name}</Text>
-            </View>
-          );
-        }}
-        key={index}
-        onReceiveDragDrop={(event) => {
-          let selected_item = dragItemMiddleList[event.dragged.payload];
-          let newReceivingItemList = [...receivingItemList];
-          newReceivingItemList[index] = selected_item;
-          setReceivedItemList(newReceivingItemList);
-
-          let newDragItemMiddleList = [...dragItemMiddleList];
-          newDragItemMiddleList[event.dragged.payload] = receivingItemList[index];
-          setDragItemListMiddle(newDragItemMiddleList);
-        }}
-      />
-    );
-  }
-
-  const FlatListItemSeparator = () => {
-    return (<View style={styles.itemSeparator} />);
-  }
-  
   
   return (
     <GestureHandlerRootView style={gestureRootViewStyle}>      
           <View style={{flex: 1,justifyContent: 'space-evenly',borderWidth:1}}>
             <View resizeMode="stretch" >
-              <Image style={{width:'100%',height:'100%'}}source={require('../../../assets/images/backimg/1.gif')}/>  
+              <Image style={{width:'100%',height:'100%'}}source={{uri: 'https://firebasestorage.googleapis.com/v0/b/graduated-project-ce605.appspot.com/o/Background%2Fbackground1.png?alt=media&token=f59b87fe-3a69-46b9-aed6-6455dd80ba45'}}/>
               <View style={{position:'absolute', translateX:300,translateY:20, borderWidth:1,borderColor:'red',width:50,height:50}}></View>
               <View style={{position:'absolute', translateX:20,translateY:250, borderWidth:1,borderColor:'red',width:50,height:50}}></View>
               <View style={{position:'absolute', translateX:300,translateY:250, borderWidth:1,borderColor:'red',width:50,height:50}}></View>

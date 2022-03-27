@@ -13,6 +13,7 @@ import {
 import Card from '../UI/Card'
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
+import firebase from '@react-native-firebase/app'
 import { now } from 'moment';
 
 const ProductItem = ({src,name,price,classification}) => { 
@@ -21,7 +22,7 @@ const ProductItem = ({src,name,price,classification}) => {
     const [addaddress,setaddAddress] = useState(src);
     const [addclassification,setaddclassification] = useState(classification)
     
-    const addTool = firestore().collection('Inventory');
+    const addTool = firestore().collection('Inventory').doc(firebase.auth().currentUser.uid).collection('items');
     const addItem = async () => {
         try {
             await addTool.add({

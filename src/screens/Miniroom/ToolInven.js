@@ -2,9 +2,9 @@ import { View, Text,TouchableOpacity,StyleSheet,Image,SafeAreaView,Button,Dimens
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import React,{useState,useEffect} from 'react'
-
+import firebase  from '@react-native-firebase/app';
 const ToolInven = () => {
-  const usersCollection = firestore().collection('Inventory');  
+  const usersCollection = firestore().collection('Inventory').doc(firebase.auth().currentUser.uid).collection('items'); 
   const [tool, setTool] = useState();
   
   const getShopData = async () => {
