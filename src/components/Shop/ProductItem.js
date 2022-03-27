@@ -15,20 +15,22 @@ import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 import { now } from 'moment';
 
-const ProductItem = ({src,name,price}) => {
+const ProductItem = ({src,name,price,classification}) => { 
     const [addname,setaddName] = useState(name);
     const [addprice,setaddPrice] = useState(price);
     const [addaddress,setaddAddress] = useState(src);
-    const addTool = firestore().collection('shop');
+    const [addclassification,setaddclassification] = useState(classification)
     
+    const addTool = firestore().collection('Inventory');
     const addItem = async () => {
         try {
             await addTool.add({
             name: addname,
             price: addprice,
             address: addaddress,
+            classification: addclassification,
           });
-          console.log(`이름 : ${addname} 가격: ${addprice} 주소 : ${addaddress}`);
+          console.log(`이름 : ${addname} 가격: ${addprice} 주소 : ${addaddress} 분류:${addclassification}`);
         } catch (error) {
           console.log(error.message);
         }
