@@ -10,6 +10,7 @@ import Follow from '../Follow/Follow';
 import Miniroom from '../Miniroom/Miniroom';
 import ProfileScreen from '../ProfileScreen/ProfileScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import test from '../StoreScreen/test';
 const Stack = createNativeStackNavigator();
 const ProfileStackScreen = () => {
   return (

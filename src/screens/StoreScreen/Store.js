@@ -9,15 +9,7 @@ import musicStore from '../../screens/StoreScreen/musicStore';
 
 const Tab = createMaterialTopTabNavigator();
 
-function renderItem({item}){
-  return <Image
-  source={{uri:item}}
-  style={{height:160,width:160,margin:10}}
-  />;
-}
-const imageArr = new Array(20).fill("https://t1.daumcdn.net/cfile/tistory/1834CF0E49DB630963")
 const Store = () => { 
-  const [images, setImages] =useState(imageArr);
   return (
     <Tab.Navigator>
       <Tab.Screen name="가구" component={toolStore} />
