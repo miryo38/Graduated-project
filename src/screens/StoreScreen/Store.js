@@ -14,7 +14,7 @@ const Store = () => {
     <Tab.Navigator>
       <Tab.Screen name="가구" component={toolStore} />
       <Tab.Screen name="미니미" component={minimeStore} />
-      <Tab.Screen name="음악" component={musicStore} />
+      <Tab.Screen name="배경" component={musicStore} />
     </Tab.Navigator>
   );
 };

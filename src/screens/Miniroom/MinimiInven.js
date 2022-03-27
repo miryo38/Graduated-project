@@ -4,7 +4,7 @@ import firestore from '@react-native-firebase/firestore';
 import React,{useState,useEffect} from 'react'
 import firebase  from '@react-native-firebase/app';
 const MinimiInven = () => {
-  const usersCollection = firestore().collection('Inventory').doc(firebase.auth().currentUser.uid).collection('items');  
+  const usersCollection = firestore().collection('Inventory').doc(firebase.auth().currentUser.uid).collection('minime');  
   const [tool, setTool] = useState();
   
   const getShopData = async () => {
@@ -24,11 +24,10 @@ const MinimiInven = () => {
     <View style={styles.container}>
       {
         tool?.map((row, idx) => {
-          if(row.classification==='미니미'){
+          {
             return  <TouchableOpacity style={{borderWidth:1,}}>
             <Image source ={{uri:row.address}} style={{width:70,height:70,}} resizeMode="contain" ></Image>
-            </TouchableOpacity>;} else{
-          }
+            </TouchableOpacity>;} 
       })
       }
     </View>

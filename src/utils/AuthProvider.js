@@ -122,7 +122,13 @@ export const AuthProvider = ({children}) => {
                   birthday: null,
                   createdAt: firestore.Timestamp.fromDate(new Date()),
                   userImg: 'https://firebasestorage.googleapis.com/v0/b/graduated-project-ce605.appspot.com/o/AppImage%2Fprofile.jpg?alt=media&token=719929c2-defb-4cbf-99ca-fddd21bfeaa4',
+
+                  
               })
+              firestore().collection('miniroom').doc(auth().currentUser.uid).set({
+                background: 'https://firebasestorage.googleapis.com/v0/b/graduated-project-ce605.appspot.com/o/Background%2Fbackground1.png?alt=media&token=f59b87fe-3a69-46b9-aed6-6455dd80ba45'
+              })
+              
               //ensure we catch any errors at this stage to advise us if something does go wrong
               .catch(error => {
                   console.log('Something went wrong with added user to firestore: ', error);

@@ -53,7 +53,7 @@ const Miniroom = () => {
         <Tab.Navigator>
       <Tab.Screen name="가구" component={ToolInven} />
       <Tab.Screen name="미니미" component={MinimiInven} />
-      <Tab.Screen name="음악" component={MusicInven} />
+      <Tab.Screen name="배경" component={MusicInven} />
     </Tab.Navigator>
         </View>
     </GestureHandlerRootView>

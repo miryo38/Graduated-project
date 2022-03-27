@@ -1,12 +1,12 @@
 import { View, Text,ScrollView,Image} from 'react-native'
 import React from 'react'
-import ProductItem from '../../components/Shop/ProductItem'
+import ProductItem from '../../components/Shop/ProductItem_background'
 import { useState,useEffect} from 'react'
 import storage from '@react-native-firebase/storage';
 import firestore from '@react-native-firebase/firestore';
 
 const musicStore = () => {
-  const usersCollection = firestore().collection('shops');  
+  const usersCollection = firestore().collection('shops').doc('shopitems').collection('background');   
   const [tool, setTool] = useState();
   
   const getShopData = async () => {
@@ -24,8 +24,8 @@ const musicStore = () => {
     <ScrollView>
       {
         tool?.map((row, idx) => {
-          if(row.classification==='배경'){
-            return  <ProductItem src={row.address} name={row.name} price={row.price} classification={row.classification}/>;} 
+          {
+            return  <ProductItem src={row.address} name={row.name} price={row.price} />;} 
       })
       }
     </ScrollView>

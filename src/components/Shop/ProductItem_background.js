@@ -22,16 +22,16 @@ const ProductItem = ({src,name,price,classification}) => {
     const [addaddress,setaddAddress] = useState(src);
     const [addclassification,setaddclassification] = useState(classification)
     
-    const addTool = firestore().collection('Inventory').doc(firebase.auth().currentUser.uid).collection('items');
+    const addTool = firestore().collection('Inventory').doc(firebase.auth().currentUser.uid).collection('background');
     const addItem = async () => {
         try {
             await addTool.add({
             name: addname,
             price: addprice,
             address: addaddress,
-            classification: addclassification,
+            
           });
-          console.log(`이름 : ${addname} 가격: ${addprice} 주소 : ${addaddress} 분류:${addclassification}`);
+          console.log(`이름 : ${addname} 가격: ${addprice} 주소 : ${addaddress} `);
         } catch (error) {
           console.log(error.message);
         }
