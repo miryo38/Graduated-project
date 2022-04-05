@@ -57,14 +57,14 @@ const FeedStack = ({navigation}) => (
         title: '',
         headerTitleAlign: 'center',
         headerStyle: {
-          backgroundColor: '#2e64e515',
-          shadowColor: '#2e64e515',
+          backgroundColor: 'white',
+          shadowColor: 'white',
           elevation: 0,
         },
         headerBackTitleVisible: false,
         headerBackImage: () => (
           <View style={{marginLeft: 15}}>
-            <Ionicons name="arrow-back" size={25} color="#2e64e5" />
+            <Ionicons name="arrow-back" size={25} color="black" />
           </View>
         ),
       }}

@@ -36,6 +36,7 @@ const AddPostScreen = () => {
   const [uploading, setUploading] = useState(false);
   const [transferred, setTransferred] = useState(0);
   const [post, setPost] = useState(null);
+  const [tag, setTag] = useState(null);
 
   const takePhotoFromCamera = () => {
     ImagePicker.openCamera({
@@ -70,9 +71,9 @@ const AddPostScreen = () => {
     firestore()
     .collection('posts')
     .add({
-      
       uid: user.uid,
       post: post,
+      tag: tag,
       postImg: imageUrl,
       postTime: firestore.Timestamp.fromDate(new Date()),
       likes: 0,
@@ -147,13 +148,21 @@ const AddPostScreen = () => {
     <View style={styles.container}>
       <InputWrapper>
         {image != null ? <AddImage source={{uri: image}} /> : null}
-
+        <View style={styles.row}>
         <InputField
           placeholder="게시물 내용을 작성하세요!"
           multiline
           numberOfLines={4}
           value={post}
           onChangeText={(content) => setPost(content)}
+        />
+        </View>
+        <InputField
+          placeholder="게시물 주제를 작성하세요!"
+          multiline
+          numberOfLines={4}
+          value={tag}
+          onChangeText={(content) => setTag(content)}
         />
         {uploading ? (
           <StatusWrapper>
@@ -166,7 +175,7 @@ const AddPostScreen = () => {
           </SubmitBtn>
         )}
       </InputWrapper>
-      <ActionButton buttonColor="#2e64e5">
+      <ActionButton buttonColor="#FF6347">
         <ActionButton.Item
           buttonColor="#9b59b6"
           title="Take Photo"
@@ -197,4 +206,12 @@ const styles = StyleSheet.create({
     height: 22,
     color: 'white',
   },
+  row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 17.5,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderColor: 'black',
+    alignItems: 'center'
+},
 });
